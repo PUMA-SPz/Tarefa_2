@@ -1,0 +1,796 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>tarefa_2</title>
+<meta name="generator" content="MATLAB 24.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2025-01-08">
+<meta name="DC.source" content="tarefa_2.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Impeller e Diffuser</a>
+</li>
+<li>
+<a href="#2">Constantes fornecidas</a>
+</li>
+<li>
+<a href="#3">Condi&ccedil;&otilde;es iniciais do Impeller</a>
+</li>
+<li>
+<a href="#4">Loop para calcular as vari&aacute;veis em cada ponto do Impeller</a>
+</li>
+<li>
+<a href="#5">Gr&aacute;ficos do Impeller</a>
+</li>
+<li>
+<a href="#6">Diffuser</a>
+</li>
+<li>
+<a href="#7">Condi&ccedil;&otilde;es iniciais do Diffuser (sa&iacute;da do Impeller)</a>
+</li>
+<li>
+<a href="#8">Itera&ccedil;&otilde;es para calcular os valores em cada ponto do Diffuser</a>
+</li>
+<li>
+<a href="#9">Gr&aacute;ficos do Diffuser</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Impeller e Diffuser</h2>
+<p>Este script calcula as propriedades termodin&acirc;micas e geom&eacute;tricas ao longo de um impeller e diffuser.</p>
+<pre class="codeinput">
+<span class="comment">% Limpeza do ambiente</span>
+clc;
+close <span class="string">all</span>;
+clearvars;
+</pre>
+<h2 id="2">Constantes fornecidas</h2>
+<pre class="codeinput">RP = 3;
+Mass_Flow_Rate = 2.0;
+RPM = 1000;
+z = 50;
+Raio_interior = 10e-2;
+Raio_exterior = 50e-2;
+eta_c = 0.75;
+eta_diffuser = 0.75;
+gamma = 1.4;
+T_inicial = 309.34;
+Densidade_ar_inicial = 1.28;
+R = 287;
+P_inicial = 1.0e5; <span class="comment">% Press&atilde;o de estagna&ccedil;&atilde;o</span>
+cp = gamma * R / (gamma - 1);
+cv = cp / gamma;
+
+<span class="comment">% Fator de Slip (σ)</span>
+sigma = 1 - (0.63 * pi / z);
+
+<span class="comment">% Velocidade angular (W)</span>
+W = 2 * pi * RPM / 60; <span class="comment">% rad/s</span>
+
+<span class="comment">% N&uacute;mero de pontos no Impeller</span>
+n = 100;
+r = linspace(Raio_interior, Raio_exterior, n); <span class="comment">% Raio discretizado</span>
+dr = (Raio_exterior - Raio_interior) / n; <span class="comment">% Incremento radial</span>
+
+<span class="comment">% Inicializa&ccedil;&atilde;o de arrays para armazenar resultados do Impeller</span>
+T_real = zeros(1, n);
+P_real = zeros(1, n);
+rho_real = zeros(1, n);
+CW = zeros(1, n);
+C = zeros(1, n);
+H_real = zeros(1, n);
+b_n = zeros(1, n);
+Ca = zeros(1, n);
+beta = zeros(1, n);
+</pre>
+<h2 id="3">Condi&ccedil;&otilde;es iniciais do Impeller</h2>
+<pre class="codeinput">T_real(1) = T_inicial; <span class="comment">% Temperatura inicial real</span>
+rho_real(1) = Densidade_ar_inicial;
+P_real(1) = rho_real(1) * R * T_real(1);
+H_real(1) = cp * T_real(1); <span class="comment">% Entalpia inicial</span>
+b_n(1) = 0.10; <span class="comment">% Altura da blade no primeiro ponto (m)</span>
+Ca(1) = Mass_Flow_Rate / (rho_real(1) * 2 * pi * b_n(1) * Raio_interior);
+
+<span class="comment">% Press&atilde;o final e temperatura isentr&oacute;pica final</span>
+P_isentropic_final = P_inicial * RP; <span class="comment">% Press&atilde;o final isentr&oacute;pica</span>
+T_isentropic_final = T_inicial * (P_isentropic_final / P_inicial)^((gamma - 1) / gamma); <span class="comment">% Temperatura isentr&oacute;pica final</span>
+T_final_real = T_inicial + (T_isentropic_final - T_inicial) / eta_c; <span class="comment">% Temperatura real final considerando efici&ecirc;ncia</span>
+
+H_final = cp * T_final_real; <span class="comment">% Entalpia final calculada a partir da temperatura final</span>
+</pre>
+<h2 id="4">Loop para calcular as vari&aacute;veis em cada ponto do Impeller</h2>
+<pre class="codeinput">
+<span class="keyword">for</span> i = 2:n
+    <span class="comment">% Atualizar raio</span>
+    raio_atual = r(i);
+
+    <span class="comment">% Velocidade perif&eacute;rica (U)</span>
+    U = W * raio_atual; <span class="comment">% U = W * r</span>
+
+    <span class="comment">% Velocidade tangencial (CW)</span>
+    CW(i) = U * sigma;
+
+    <span class="comment">% Velocidade absoluta (C)</span>
+    C(i) = sqrt(CW(i)^2 + Ca(1)^2);
+
+    <span class="comment">% Atualizar entalpia espec&iacute;fica linearmente</span>
+    H_real(i) = H_real(1) + (H_final - H_real(1)) * (i - 1) / (n - 1);
+
+    <span class="comment">% Atualizar temperatura real a partir da entalpia</span>
+    T_real(i) = H_real(i) / cp;
+
+    <span class="comment">% Atualizar press&atilde;o real a partir da rela&ccedil;&atilde;o isentr&oacute;pica</span>
+    P_real(i) = P_real(i-1) * (T_real(i) / T_real(i-1))^(gamma / (gamma - 1));
+
+    <span class="comment">% Atualizar densidade real</span>
+    rho_real(i) = P_real(i) / (R * T_real(i));
+
+    <span class="comment">% Atualizar altura da blade</span>
+    b_n(i) = Mass_Flow_Rate / (rho_real(i) * Ca(1) * 2 * pi * r(i));
+
+    <span class="comment">% Calcular &acirc;ngulo do tri&acirc;ngulo de velocidades</span>
+    beta(i) = atan(Ca(1) / CW(i));
+<span class="keyword">end</span>
+</pre>
+<h2 id="5">Gr&aacute;ficos do Impeller</h2>
+<p>Primeiro conjunto de gr&aacute;ficos (Temperatura, Press&atilde;o, Densidade, Velocidade Tangencial)</p>
+<pre class="codeinput">figure;
+
+subplot(2, 2, 1);
+plot(2:n, T_real(2:n), <span class="string">'LineWidth'</span>, 1.5);
+grid <span class="string">on</span>;
+title(<span class="string">'Temperatura Real ao longo de n'</span>);
+xlabel(<span class="string">'n (pontos)'</span>);
+ylabel(<span class="string">'Temperatura (K)'</span>);
+
+subplot(2, 2, 2);
+plot(2:n, P_real(2:n), <span class="string">'LineWidth'</span>, 1.5);
+grid <span class="string">on</span>;
+title(<span class="string">'Press&atilde;o Real ao longo de n'</span>);
+xlabel(<span class="string">'n (pontos)'</span>);
+ylabel(<span class="string">'Press&atilde;o (Pa)'</span>);
+
+subplot(2, 2, 3);
+plot(2:n, rho_real(2:n), <span class="string">'LineWidth'</span>, 1.5);
+grid <span class="string">on</span>;
+title(<span class="string">'Densidade Real ao longo de n'</span>);
+xlabel(<span class="string">'n (pontos)'</span>);
+ylabel(<span class="string">'Densidade (kg/m&sup3;)'</span>);
+
+subplot(2, 2, 4);
+plot(2:n, CW(2:n), <span class="string">'LineWidth'</span>, 1.5);
+grid <span class="string">on</span>;
+title(<span class="string">'Velocidade Tangencial (CW) ao longo de n'</span>);
+xlabel(<span class="string">'n (pontos)'</span>);
+ylabel(<span class="string">'Velocidade Tangencial (m/s)'</span>);
+
+<span class="comment">% Segundo conjunto de gr&aacute;ficos (Velocidade Absoluta, Altura das Blades, Entalpia, &Acirc;ngulo β)</span>
+figure;
+
+subplot(2, 2, 1);
+plot(2:n, C(2:n), <span class="string">'LineWidth'</span>, 1.5);
+grid <span class="string">on</span>;
+title(<span class="string">'Velocidade Absoluta (C) ao longo de n'</span>);
+xlabel(<span class="string">'n (pontos)'</span>);
+ylabel(<span class="string">'Velocidade Absoluta (m/s)'</span>);
+
+subplot(2, 2, 2);
+plot(2:n, b_n(2:n), <span class="string">'LineWidth'</span>, 1.5);
+grid <span class="string">on</span>;
+title(<span class="string">'Altura das Blades (b_n) ao longo de n'</span>);
+xlabel(<span class="string">'n (pontos)'</span>);
+ylabel(<span class="string">'Altura das Blades (m)'</span>);
+
+subplot(2, 2, 3);
+plot(2:n, H_real(2:n), <span class="string">'LineWidth'</span>, 1.5);
+grid <span class="string">on</span>;
+title(<span class="string">'Entalpia Real (H) ao longo de n'</span>);
+xlabel(<span class="string">'n (pontos)'</span>);
+ylabel(<span class="string">'Entalpia (J/kg)'</span>);
+
+subplot(2, 2, 4);
+plot(2:n, beta(2:n) * (180 / pi), <span class="string">'LineWidth'</span>, 1.5);
+grid <span class="string">on</span>;
+title(<span class="string">'&Acirc;ngulo β ao longo de n'</span>);
+xlabel(<span class="string">'n (pontos)'</span>);
+ylabel(<span class="string">'&Acirc;ngulo β (graus)'</span>);
+</pre>
+<img vspace="5" hspace="5" src="tarefa_2_01.png" alt=""> <img vspace="5" hspace="5" src="tarefa_2_02.png" alt=""> <h2 id="6">Diffuser</h2>
+<pre class="codeinput">m_dot = Mass_Flow_Rate;
+d_n = 50;
+k = gamma;
+
+<span class="comment">% Inicializa&ccedil;&atilde;o de arrays para o Diffuser</span>
+T_diffuser = zeros(1, d_n);
+P_diffuser = zeros(1, d_n);
+rho_diffuser = zeros(1, d_n);
+Cr_diffuser = zeros(1, d_n);
+C_total = zeros(1, d_n);
+angulo_beta = zeros(1, d_n);
+Cw_diffuser = zeros(1, d_n);
+diffuser_area = zeros(1, d_n);
+Diametro = zeros(1, d_n);
+</pre>
+<h2 id="7">Condi&ccedil;&otilde;es iniciais do Diffuser (sa&iacute;da do Impeller)</h2>
+<pre class="codeinput">T_diffuser(1) = T_real(end);
+P_diffuser(1) = 3.00e5; <span class="comment">% Press&atilde;o inicial no diffuser</span>
+rho_diffuser(1) = rho_real(end);
+Cr_diffuser(1) = Ca(1); <span class="comment">% Velocidade axial inicial do diffuser</span>
+Cw_diffuser(1) = CW(end);
+diffuser_area(1) = pi * Raio_exterior^2;
+Diametro(1) = 2 * Raio_exterior;
+b_d = b_n(end);
+
+C_total(1) = sqrt(Cr_diffuser(1)^2 + Cw_diffuser(1)^2);
+T_estagnacao = T_diffuser(1) + C_total(1)^2 / (2 * cp);
+
+<span class="comment">% Condi&ccedil;&otilde;es finais</span>
+P_isentropica_final = 2.714e5;
+Cr_diffuser(d_n) = 30;
+C_total(d_n) = sqrt(Cw_diffuser(d_n)^2 + Cr_diffuser(d_n)^2);
+T(50) = T_estagnacao - C_total(d_n)^2 / (2 * cp);
+rho_diffuser(d_n) = P_isentropica_final / (R * T(50));
+diffuser_area(d_n) = m_dot / (Cr_diffuser(d_n) * rho_diffuser(d_n));
+diffuser_area(d_n) = pi * Diametro(d_n) * b_d;
+
+it = 0;
+erro_relativo = 1;
+Cw_diffuser(d_n) = 150; <span class="comment">% Valor final inicial</span>
+
+<span class="comment">% Itera&ccedil;&atilde;o para ajustar Cw_diffuser no ponto final do Diffuser</span>
+<span class="keyword">while</span> (1)
+    Cw_diffuser_iterativo = Cw_diffuser(d_n); <span class="comment">% Valor atual de Cw_diffuser no ponto final</span>
+    C_total(d_n) = sqrt(Cw_diffuser_iterativo^2 + Cr_diffuser(d_n)^2);
+    T(50) = T_estagnacao - C_total(d_n)^2 / (2 * cp);
+    rho_diffuser(d_n) = P_isentropica_final / (R * T(50));
+    diffuser_area(d_n) = m_dot / (Cr_diffuser(d_n) * rho_diffuser(d_n));
+    Diametro(d_n) = diffuser_area(d_n) / (pi * b_d); <span class="comment">% Atualizar di&acirc;metro</span>
+
+    <span class="keyword">if</span> (erro_relativo &lt; 0.01)
+        <span class="keyword">break</span>;
+    <span class="keyword">end</span>
+    Cw_diffuser(d_n) = (Cw_diffuser(1) * Diametro(1)) / Diametro(d_n);
+    erro_relativo = abs((Cw_diffuser(d_n) - Cw_diffuser_iterativo) / Cw_diffuser(d_n));
+
+    it = it + 1;
+
+    <span class="keyword">if</span> (it &gt; 100)
+        fprintf(<span class="string">'N&atilde;o convergiu\n'</span>);
+        <span class="keyword">break</span>;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% Linearizar di&acirc;metro ao longo do diffuser</span>
+Diametro = linspace(Diametro(1), Diametro(d_n), d_n);
+</pre>
+<h2 id="8">Itera&ccedil;&otilde;es para calcular os valores em cada ponto do Diffuser</h2>
+<pre class="codeinput">
+<span class="keyword">for</span> i = 2:d_n
+    <span class="comment">% Itera&ccedil;&atilde;o para Cw_diffuser</span>
+    it_cw = 0;
+    erro_relativo_cw = 1;
+
+    <span class="keyword">while</span> (1)
+        Cw_diffuser_iterativo = Cw_diffuser(i - 1);
+        C_total(i) = sqrt(Cw_diffuser_iterativo^2 + Cr_diffuser(i - 1)^2);
+        T_diffuser(i) = T_estagnacao - C_total(i)^2 / (2 * cp);
+        rho_diffuser(i) = P_diffuser(i - 1) / (R * T_diffuser(i-1));
+        diffuser_area(i) = pi * Diametro(i) * b_d;
+
+        <span class="keyword">if</span> (erro_relativo_cw &lt; 0.01)
+            <span class="keyword">break</span>;
+        <span class="keyword">end</span>
+        Cw_diffuser(i) = (Cw_diffuser(1) * Diametro(1)) / Diametro(i);
+        erro_relativo_cw = abs((Cw_diffuser(i) - Cw_diffuser_iterativo) / Cw_diffuser(i));
+
+        it_cw = it_cw + 1;
+        <span class="keyword">if</span> (it_cw &gt; 100)
+            fprintf(<span class="string">'N&atilde;o convergiu para Cw_diffuser no ponto %d\n'</span>, i);
+            <span class="keyword">break</span>;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+    <span class="comment">% Itera&ccedil;&atilde;o para Cr_diffuser</span>
+    it_cr = 0;
+    erro_relativo_cr = 1;
+
+    <span class="keyword">while</span> (1)
+        Cr_diffuser_iterativo = Cr_diffuser(i - 1);
+        C_total(i) = sqrt(Cw_diffuser(i)^2 + Cr_diffuser_iterativo^2);
+        T_diffuser(i) = T_estagnacao - C_total(i)^2 / (2 * cp);
+        rho_diffuser(i) = P_diffuser(i - 1) / (R * T_diffuser(i-1));
+        diffuser_area(i) = pi * Diametro(i) * b_d;
+        Cr_diffuser(i) = m_dot / (rho_diffuser(i) * diffuser_area(i));
+        erro_relativo_cr = abs((Cr_diffuser(i) - Cr_diffuser_iterativo) / Cr_diffuser(i));
+
+        it_cr = it_cr + 1;
+        <span class="keyword">if</span> (erro_relativo_cr &lt; 0.01 || it_cr &gt; 100)
+            <span class="keyword">break</span>;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+    <span class="comment">% Atualizar press&atilde;o e densidade usando efici&ecirc;ncia e isentr&oacute;pica</span>
+    P_diffuser(i) = P_diffuser(i - 1) * (1 + eta_c * ((C_total(i - 1)^2 - C_total(i)^2) / (2 * cp * T_diffuser(i - 1))));
+    T_diffuser(i) = T_diffuser(i - 1) * (P_diffuser(i) / P_diffuser(i - 1))^((k - 1) / k);
+    rho_diffuser(i) = P_diffuser(i) / (R * T_diffuser(i));
+
+    <span class="comment">% Calcular &acirc;ngulo no tri&acirc;ngulo de velocidades</span>
+    angulo_beta(i) = atan(Cw_diffuser(i) / Cr_diffuser(i)) * (180 / pi);
+<span class="keyword">end</span>
+</pre>
+<h2 id="9">Gr&aacute;ficos do Diffuser</h2>
+<p>Subplots 1: Temperatura, Press&atilde;o, Densidade, &Aacute;rea de Superf&iacute;cie</p>
+<pre class="codeinput">figure;
+
+subplot(2, 2, 1);
+plot(3:d_n, T_diffuser(3:end), <span class="string">'LineWidth'</span>, 1.5);
+title(<span class="string">'Temperatura ao longo do diffuser'</span>);
+xlabel(<span class="string">'Ponto n'</span>);
+ylabel(<span class="string">'Temperatura (K)'</span>);
+grid <span class="string">on</span>;
+
+subplot(2, 2, 2);
+plot(3:d_n, P_diffuser(3:end), <span class="string">'LineWidth'</span>, 1.5);
+title(<span class="string">'Press&atilde;o ao longo do diffuser'</span>);
+xlabel(<span class="string">'Ponto n'</span>);
+ylabel(<span class="string">'Press&atilde;o (Pa)'</span>);
+grid <span class="string">on</span>;
+
+subplot(2, 2, 3);
+plot(3:d_n, rho_diffuser(3:end), <span class="string">'LineWidth'</span>, 1.5);
+title(<span class="string">'Densidade ao longo do diffuser'</span>);
+xlabel(<span class="string">'Ponto n'</span>);
+ylabel(<span class="string">'Densidade (kg/m&sup3;)'</span>);
+grid <span class="string">on</span>;
+
+subplot(2, 2, 4);
+plot(3:d_n, diffuser_area(3:end), <span class="string">'LineWidth'</span>, 1.5);
+title(<span class="string">'&Aacute;rea de superf&iacute;cie ao longo do diffuser'</span>);
+xlabel(<span class="string">'Ponto n'</span>);
+ylabel(<span class="string">'&Aacute;rea (m&sup2;)'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% Subplots 2: Velocidade Tangencial, Velocidade Total, &Acirc;ngulo β</span>
+figure;
+
+subplot(2, 2, 1);
+plot(3:d_n, Cw_diffuser(3:end), <span class="string">'LineWidth'</span>, 1.5);
+title(<span class="string">'Velocidade tangencial (Cw) ao longo do diffuser'</span>);
+xlabel(<span class="string">'Ponto n'</span>);
+ylabel(<span class="string">'Cw (m/s)'</span>);
+grid <span class="string">on</span>;
+
+subplot(2, 2, 2);
+plot(3:d_n, C_total(3:end), <span class="string">'LineWidth'</span>, 1.5);
+title(<span class="string">'Velocidade total ao longo do diffuser'</span>);
+xlabel(<span class="string">'Ponto n'</span>);
+ylabel(<span class="string">'Velocidade total (m/s)'</span>);
+grid <span class="string">on</span>;
+
+subplot(2, 2, 3);
+plot(4:d_n, angulo_beta(4:end), <span class="string">'LineWidth'</span>, 1.5); <span class="comment">% Saltar o ponto 3</span>
+title(<span class="string">'&Acirc;ngulo no tri&acirc;ngulo de velocidades (\beta)'</span>);
+xlabel(<span class="string">'Ponto n'</span>);
+ylabel(<span class="string">'&Acirc;ngulo \beta (graus)'</span>);
+grid <span class="string">on</span>;
+</pre>
+<img vspace="5" hspace="5" src="tarefa_2_03.png" alt=""> <img vspace="5" hspace="5" src="tarefa_2_04.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Impeller e Diffuser
+% Este script calcula as propriedades termodinâmicas e geométricas ao longo de um impeller e diffuser.
+
+% Limpeza do ambiente
+clc;
+close all;
+clearvars;
+
+%% Constantes fornecidas
+RP = 3;                          
+Mass_Flow_Rate = 2.0;            
+RPM = 1000;                      
+z = 50;                          
+Raio_interior = 10e-2;          
+Raio_exterior = 50e-2;          
+eta_c = 0.75;
+eta_diffuser = 0.75;
+gamma = 1.4;                     
+T_inicial = 309.34;              
+Densidade_ar_inicial = 1.28;     
+R = 287;                         
+P_inicial = 1.0e5; % Pressão de estagnação               
+cp = gamma * R / (gamma - 1);    
+cv = cp / gamma;     
+
+% Fator de Slip (σ)
+sigma = 1 - (0.63 * pi / z); 
+
+% Velocidade angular (W)
+W = 2 * pi * RPM / 60; % rad/s
+
+% Número de pontos no Impeller
+n = 100; 
+r = linspace(Raio_interior, Raio_exterior, n); % Raio discretizado
+dr = (Raio_exterior - Raio_interior) / n; % Incremento radial
+
+% Inicialização de arrays para armazenar resultados do Impeller
+T_real = zeros(1, n);       
+P_real = zeros(1, n);       
+rho_real = zeros(1, n);     
+CW = zeros(1, n);           
+C = zeros(1, n);            
+H_real = zeros(1, n);       
+b_n = zeros(1, n);          
+Ca = zeros(1, n);           
+beta = zeros(1, n);         
+
+%% Condições iniciais do Impeller
+T_real(1) = T_inicial; % Temperatura inicial real
+rho_real(1) = Densidade_ar_inicial;
+P_real(1) = rho_real(1) * R * T_real(1);
+H_real(1) = cp * T_real(1); % Entalpia inicial
+b_n(1) = 0.10; % Altura da blade no primeiro ponto (m)
+Ca(1) = Mass_Flow_Rate / (rho_real(1) * 2 * pi * b_n(1) * Raio_interior); 
+
+% Pressão final e temperatura isentrópica final
+P_isentropic_final = P_inicial * RP; % Pressão final isentrópica 
+T_isentropic_final = T_inicial * (P_isentropic_final / P_inicial)^((gamma - 1) / gamma); % Temperatura isentrópica final
+T_final_real = T_inicial + (T_isentropic_final - T_inicial) / eta_c; % Temperatura real final considerando eficiência
+
+H_final = cp * T_final_real; % Entalpia final calculada a partir da temperatura final
+
+%% Loop para calcular as variáveis em cada ponto do Impeller
+for i = 2:n
+    % Atualizar raio
+    raio_atual = r(i);
+    
+    % Velocidade periférica (U)
+    U = W * raio_atual; % U = W * r
+    
+    % Velocidade tangencial (CW)
+    CW(i) = U * sigma; 
+    
+    % Velocidade absoluta (C)
+    C(i) = sqrt(CW(i)^2 + Ca(1)^2); 
+    
+    % Atualizar entalpia específica linearmente
+    H_real(i) = H_real(1) + (H_final - H_real(1)) * (i - 1) / (n - 1);
+    
+    % Atualizar temperatura real a partir da entalpia
+    T_real(i) = H_real(i) / cp;
+
+    % Atualizar pressão real a partir da relação isentrópica
+    P_real(i) = P_real(i-1) * (T_real(i) / T_real(i-1))^(gamma / (gamma - 1));
+
+    % Atualizar densidade real
+    rho_real(i) = P_real(i) / (R * T_real(i));
+
+    % Atualizar altura da blade
+    b_n(i) = Mass_Flow_Rate / (rho_real(i) * Ca(1) * 2 * pi * r(i));
+
+    % Calcular ângulo do triângulo de velocidades
+    beta(i) = atan(Ca(1) / CW(i));
+end
+
+%% Gráficos do Impeller
+% Primeiro conjunto de gráficos (Temperatura, Pressão, Densidade, Velocidade Tangencial)
+figure;
+
+subplot(2, 2, 1);
+plot(2:n, T_real(2:n), 'LineWidth', 1.5); 
+grid on;
+title('Temperatura Real ao longo de n');
+xlabel('n (pontos)');
+ylabel('Temperatura (K)');
+
+subplot(2, 2, 2);
+plot(2:n, P_real(2:n), 'LineWidth', 1.5); 
+grid on;
+title('Pressão Real ao longo de n');
+xlabel('n (pontos)');
+ylabel('Pressão (Pa)');
+
+subplot(2, 2, 3);
+plot(2:n, rho_real(2:n), 'LineWidth', 1.5); 
+grid on;
+title('Densidade Real ao longo de n');
+xlabel('n (pontos)');
+ylabel('Densidade (kg/m³)');
+
+subplot(2, 2, 4);
+plot(2:n, CW(2:n), 'LineWidth', 1.5); 
+grid on;
+title('Velocidade Tangencial (CW) ao longo de n');
+xlabel('n (pontos)');
+ylabel('Velocidade Tangencial (m/s)');
+
+% Segundo conjunto de gráficos (Velocidade Absoluta, Altura das Blades, Entalpia, Ângulo β)
+figure;
+
+subplot(2, 2, 1);
+plot(2:n, C(2:n), 'LineWidth', 1.5); 
+grid on;
+title('Velocidade Absoluta (C) ao longo de n');
+xlabel('n (pontos)');
+ylabel('Velocidade Absoluta (m/s)');
+
+subplot(2, 2, 2);
+plot(2:n, b_n(2:n), 'LineWidth', 1.5); 
+grid on;
+title('Altura das Blades (b_n) ao longo de n');
+xlabel('n (pontos)');
+ylabel('Altura das Blades (m)');
+
+subplot(2, 2, 3);
+plot(2:n, H_real(2:n), 'LineWidth', 1.5); 
+grid on;
+title('Entalpia Real (H) ao longo de n');
+xlabel('n (pontos)');
+ylabel('Entalpia (J/kg)');
+
+subplot(2, 2, 4);
+plot(2:n, beta(2:n) * (180 / pi), 'LineWidth', 1.5); 
+grid on;
+title('Ângulo β ao longo de n');
+xlabel('n (pontos)');
+ylabel('Ângulo β (graus)');
+
+%% Diffuser
+m_dot = Mass_Flow_Rate; 
+d_n = 50;
+k = gamma;
+
+% Inicialização de arrays para o Diffuser
+T_diffuser = zeros(1, d_n);
+P_diffuser = zeros(1, d_n);
+rho_diffuser = zeros(1, d_n);
+Cr_diffuser = zeros(1, d_n);
+C_total = zeros(1, d_n);
+angulo_beta = zeros(1, d_n);
+Cw_diffuser = zeros(1, d_n);
+diffuser_area = zeros(1, d_n);
+Diametro = zeros(1, d_n);
+
+%% Condições iniciais do Diffuser (saída do Impeller)
+T_diffuser(1) = T_real(end);
+P_diffuser(1) = 3.00e5; % Pressão inicial no diffuser
+rho_diffuser(1) = rho_real(end);
+Cr_diffuser(1) = Ca(1); % Velocidade axial inicial do diffuser
+Cw_diffuser(1) = CW(end); 
+diffuser_area(1) = pi * Raio_exterior^2; 
+Diametro(1) = 2 * Raio_exterior;
+b_d = b_n(end);
+
+C_total(1) = sqrt(Cr_diffuser(1)^2 + Cw_diffuser(1)^2);
+T_estagnacao = T_diffuser(1) + C_total(1)^2 / (2 * cp);
+
+% Condições finais
+P_isentropica_final = 2.714e5;
+Cr_diffuser(d_n) = 30;
+C_total(d_n) = sqrt(Cw_diffuser(d_n)^2 + Cr_diffuser(d_n)^2); 
+T(50) = T_estagnacao - C_total(d_n)^2 / (2 * cp);
+rho_diffuser(d_n) = P_isentropica_final / (R * T(50));
+diffuser_area(d_n) = m_dot / (Cr_diffuser(d_n) * rho_diffuser(d_n));       
+diffuser_area(d_n) = pi * Diametro(d_n) * b_d;
+
+it = 0;
+erro_relativo = 1;
+Cw_diffuser(d_n) = 150; % Valor final inicial
+
+% Iteração para ajustar Cw_diffuser no ponto final do Diffuser
+while (1)
+    Cw_diffuser_iterativo = Cw_diffuser(d_n); % Valor atual de Cw_diffuser no ponto final
+    C_total(d_n) = sqrt(Cw_diffuser_iterativo^2 + Cr_diffuser(d_n)^2); 
+    T(50) = T_estagnacao - C_total(d_n)^2 / (2 * cp);
+    rho_diffuser(d_n) = P_isentropica_final / (R * T(50));
+    diffuser_area(d_n) = m_dot / (Cr_diffuser(d_n) * rho_diffuser(d_n));       
+    Diametro(d_n) = diffuser_area(d_n) / (pi * b_d); % Atualizar diâmetro
+    
+    if (erro_relativo < 0.01)
+        break;
+    end
+    Cw_diffuser(d_n) = (Cw_diffuser(1) * Diametro(1)) / Diametro(d_n);
+    erro_relativo = abs((Cw_diffuser(d_n) - Cw_diffuser_iterativo) / Cw_diffuser(d_n));
+
+    it = it + 1;
+
+    if (it > 100)
+        fprintf('Não convergiu\n');
+        break;
+    end
+end
+
+% Linearizar diâmetro ao longo do diffuser
+Diametro = linspace(Diametro(1), Diametro(d_n), d_n); 
+
+%% Iterações para calcular os valores em cada ponto do Diffuser
+for i = 2:d_n
+    % Iteração para Cw_diffuser
+    it_cw = 0;
+    erro_relativo_cw = 1;
+
+    while (1)
+        Cw_diffuser_iterativo = Cw_diffuser(i - 1); 
+        C_total(i) = sqrt(Cw_diffuser_iterativo^2 + Cr_diffuser(i - 1)^2);
+        T_diffuser(i) = T_estagnacao - C_total(i)^2 / (2 * cp); 
+        rho_diffuser(i) = P_diffuser(i - 1) / (R * T_diffuser(i-1));
+        diffuser_area(i) = pi * Diametro(i) * b_d;  
+        
+        if (erro_relativo_cw < 0.01)
+            break;
+        end
+        Cw_diffuser(i) = (Cw_diffuser(1) * Diametro(1)) / Diametro(i);
+        erro_relativo_cw = abs((Cw_diffuser(i) - Cw_diffuser_iterativo) / Cw_diffuser(i));
+
+        it_cw = it_cw + 1;
+        if (it_cw > 100)
+            fprintf('Não convergiu para Cw_diffuser no ponto %d\n', i);
+            break;
+        end
+    end
+    
+    % Iteração para Cr_diffuser
+    it_cr = 0;
+    erro_relativo_cr = 1;
+    
+    while (1)
+        Cr_diffuser_iterativo = Cr_diffuser(i - 1);
+        C_total(i) = sqrt(Cw_diffuser(i)^2 + Cr_diffuser_iterativo^2);
+        T_diffuser(i) = T_estagnacao - C_total(i)^2 / (2 * cp);
+        rho_diffuser(i) = P_diffuser(i - 1) / (R * T_diffuser(i-1));
+        diffuser_area(i) = pi * Diametro(i) * b_d; 
+        Cr_diffuser(i) = m_dot / (rho_diffuser(i) * diffuser_area(i));
+        erro_relativo_cr = abs((Cr_diffuser(i) - Cr_diffuser_iterativo) / Cr_diffuser(i));
+        
+        it_cr = it_cr + 1;
+        if (erro_relativo_cr < 0.01 || it_cr > 100)
+            break;
+        end
+    end
+    
+    % Atualizar pressão e densidade usando eficiência e isentrópica
+    P_diffuser(i) = P_diffuser(i - 1) * (1 + eta_c * ((C_total(i - 1)^2 - C_total(i)^2) / (2 * cp * T_diffuser(i - 1))));
+    T_diffuser(i) = T_diffuser(i - 1) * (P_diffuser(i) / P_diffuser(i - 1))^((k - 1) / k);
+    rho_diffuser(i) = P_diffuser(i) / (R * T_diffuser(i)); 
+    
+    % Calcular ângulo no triângulo de velocidades
+    angulo_beta(i) = atan(Cw_diffuser(i) / Cr_diffuser(i)) * (180 / pi); 
+end
+
+%% Gráficos do Diffuser
+% Subplots 1: Temperatura, Pressão, Densidade, Área de Superfície
+figure;
+
+subplot(2, 2, 1);
+plot(3:d_n, T_diffuser(3:end), 'LineWidth', 1.5);
+title('Temperatura ao longo do diffuser');
+xlabel('Ponto n');
+ylabel('Temperatura (K)');
+grid on;
+
+subplot(2, 2, 2);
+plot(3:d_n, P_diffuser(3:end), 'LineWidth', 1.5);
+title('Pressão ao longo do diffuser');
+xlabel('Ponto n');
+ylabel('Pressão (Pa)');
+grid on;
+
+subplot(2, 2, 3);
+plot(3:d_n, rho_diffuser(3:end), 'LineWidth', 1.5);
+title('Densidade ao longo do diffuser');
+xlabel('Ponto n');
+ylabel('Densidade (kg/m³)');
+grid on;
+
+subplot(2, 2, 4);
+plot(3:d_n, diffuser_area(3:end), 'LineWidth', 1.5);
+title('Área de superfície ao longo do diffuser');
+xlabel('Ponto n');
+ylabel('Área (m²)');
+grid on;
+
+% Subplots 2: Velocidade Tangencial, Velocidade Total, Ângulo β
+figure;
+
+subplot(2, 2, 1);
+plot(3:d_n, Cw_diffuser(3:end), 'LineWidth', 1.5);
+title('Velocidade tangencial (Cw) ao longo do diffuser');
+xlabel('Ponto n');
+ylabel('Cw (m/s)');
+grid on;
+
+subplot(2, 2, 2);
+plot(3:d_n, C_total(3:end), 'LineWidth', 1.5);
+title('Velocidade total ao longo do diffuser');
+xlabel('Ponto n');
+ylabel('Velocidade total (m/s)');
+grid on;
+
+subplot(2, 2, 3);
+plot(4:d_n, angulo_beta(4:end), 'LineWidth', 1.5); % Saltar o ponto 3
+title('Ângulo no triângulo de velocidades (\beta)');
+xlabel('Ponto n');
+ylabel('Ângulo \beta (graus)');
+grid on;
+
+##### SOURCE END #####
+-->
+</body>
+</html>
